@@ -4,6 +4,12 @@
 const game_start_container = document.getElementById("game-start-container");
 const start_button = document.getElementById("game-start");
 
+// Score elements
+const score_container = document.getElementById("game-score-container");
+const score_element = document.getElementById("game-score");
+// set container to display none
+score_container.style.display = "none";
+
 // Game over elements
 const game_over_container = document.getElementById("game-over-container");
 const restart_button = document.getElementById("game-restart");
@@ -78,6 +84,7 @@ function update() {
 
   if (headX === food.x && headY === food.y) {
     score++;
+    score_element.innerHTML = "Score: " + score;
     food = {
       x: Math.floor(Math.random() * (canvas.width / gridSize)),
       y: Math.floor(Math.random() * (canvas.height / gridSize)),
@@ -169,6 +176,7 @@ function load() {
 // Start the game
 function start() {
   game_start_container.style.display = "none";
+  score_container.style.display = "block";
   game_running = true;
   gameLoop();
 }
@@ -179,8 +187,9 @@ function game_over() {
   // alert("Game Over! Your score: " + score);
 
   // Display game over container
-  const score_element = document.getElementById("game-over-score");
-  score_element.innerHTML = "Score: " + score;
+  score_container.style.display = "none";
+  const game_over_score_element = document.getElementById("game-over-score");
+  game_over_score_element.innerHTML = "Score: " + score;
   game_over_container.style.display = "block";
 
   // Clear keyboard event listener
@@ -200,6 +209,7 @@ function restart() {
 
   // Reset game over container
   game_over_container.style.display = "none";
+  score_container.style.display = "block";
 
   // Reset keyboard event listener
   document.addEventListener("keydown", changeDirection);
