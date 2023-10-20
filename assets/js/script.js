@@ -152,6 +152,25 @@ function updateDirection() {
   }
 }
 
+function handleKeyDown(event) {
+  /*
+    // TODO: Check if these keys are placed correctly
+    case 13: // enter (13 is the key code for the enter key)
+      if (game_running) game_over();
+      break;
+    case 82: // r (82 is the key code for the r key)
+      if (!game_running) restart();
+      break;
+    case 27: // esc (27 is the key code for the esc key)
+      if (!game_running) reset();
+      break;
+    case 16: // shift (16 is the key code for the shift key)
+      // TODO: Make this a keyhold event instead of a keydown event
+      fps_limit = 20;
+      break;
+  */
+}
+
 // Game loop
 function gameLoop() {
   // TODO: Implement an fps cap
