@@ -152,6 +152,13 @@ function gameLoop() {
   }
 }
 
+function load() {
+  // Render one frame
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawSnake();
+  drawFood();
+}
+
 function start() {
   // set container to display none
   game_start_container.style.display = "none";
@@ -197,3 +204,6 @@ function restart() {
 start_button.addEventListener("click", start);
 restart_button.addEventListener("click", restart);
 document.addEventListener("keydown", changeDirection);
+
+// Load the game
+load();
