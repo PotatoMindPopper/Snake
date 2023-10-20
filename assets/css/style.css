@@ -272,6 +272,13 @@ canvas {
     height: 30px;
 }
 
+#settings-info {
+    flex: 1;
+    /* background-color: var(--content-bg-color); */
+    /* color: var(--content-text-color); */
+    color: var(--focus-mode-text-color);
+    padding: 20px;
+}
 
 
 
