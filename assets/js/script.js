@@ -31,6 +31,9 @@ let score = 0;
 
 // Game state variables
 let game_running = false;
+let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
+// let last_frame_time = Date.now();
+let last_frame_time = performance.now();
 
 function drawSnake() {
   snake.forEach((segment) => {
@@ -125,12 +128,26 @@ function changeDirection(event) {
 
 function gameLoop() {
   // TODO: Implement an fps cap
+  // Calculate time elapsed since last frame
+  // let current_time = Date.now();
+  let current_time = performance.now();
+  let time_elapsed = current_time - last_frame_time;
+
   // Check if game is running
   if (game_running) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawSnake();
-    drawFood();
-    update();
+    // Check if enough time has passed since last frame
+    if (time_elapsed >= 1000 / fps_limit) {
+      // Update last frame time
+      last_frame_time = current_time;
+
+      // Render frame
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawSnake();
+      drawFood();
+      update();
+    }
+
+    // Request next frame
     requestAnimationFrame(gameLoop);
   }
 }
