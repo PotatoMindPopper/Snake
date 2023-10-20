@@ -188,9 +188,18 @@ function load() {
 }
 
 // Start the game
-function start() {
+function start(event) {
+  // Check the key pressed
+  const key = event.keyCode;
+  if (key !== 13) return; // 13 is the key code for the enter key
+
   game_start_container.style.display = "none";
   score_container.style.display = "block";
+
+  // Clear keyboard event listener
+  document.removeEventListener("keydown", start);
+
+  document.addEventListener("keydown", changeDirection);
   game_running = true;
   gameLoop();
 }
@@ -236,7 +245,7 @@ function restart() {
 // Set event listeners
 start_button.addEventListener("click", start);
 restart_button.addEventListener("click", restart);
-document.addEventListener("keydown", changeDirection);
+document.addEventListener("keydown", start);
 
 // Load the game
 load();
