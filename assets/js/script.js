@@ -12,12 +12,12 @@ game_over_container.style.display = "none";
 
 // Canvas setup
 const canvas = document.getElementById("game-canvas");
-canvas.width = 400;
+canvas.width = 400; // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
 canvas.height = 400;
 const context = canvas.getContext("2d");
 
 // Canvas variables
-const gridSize = 10;
+const gridSize = 10; // TODO: Maybe create a settings menu to change this value
 // TODO: turn this into a real image, with a snake head and a snake body (to be original)
 const snakeColor = "#33cc33";
 // TODO: turn this into a real image, with a fruit (to be original)
@@ -35,6 +35,7 @@ let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
 // let last_frame_time = Date.now();
 let last_frame_time = performance.now();
 
+// Draw the snake
 function drawSnake() {
   snake.forEach((segment) => {
     context.fillStyle = snakeColor;
@@ -47,11 +48,13 @@ function drawSnake() {
   });
 }
 
+// Draw the food
 function drawFood() {
   context.fillStyle = foodColor;
   context.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
 }
 
+// Update the game
 function update() {
   let headX = snake[0].x;
   let headY = snake[0].y;
@@ -90,6 +93,7 @@ function update() {
   }
 }
 
+// Check for collision
 function checkCollision() {
   const headX = snake[0].x;
   const headY = snake[0].y;
@@ -104,6 +108,7 @@ function checkCollision() {
   );
 }
 
+// Change direction
 function changeDirection(event) {
   const key = event.keyCode;
   switch (key) {
@@ -126,6 +131,7 @@ function changeDirection(event) {
   }
 }
 
+// Game loop
 function gameLoop() {
   // TODO: Implement an fps cap
   // Calculate time elapsed since last frame
@@ -152,6 +158,7 @@ function gameLoop() {
   }
 }
 
+// Load the game
 function load() {
   // Render one frame
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,13 +166,14 @@ function load() {
   drawFood();
 }
 
+// Start the game
 function start() {
-  // set container to display none
   game_start_container.style.display = "none";
   game_running = true;
   gameLoop();
 }
 
+// Game over
 function game_over() {
   // Display game over message
   // alert("Game Over! Your score: " + score);
@@ -182,6 +190,7 @@ function game_over() {
   game_running = false;
 }
 
+// Restart the game
 function restart() {
   // Reset game variables
   snake = [{ x: 10, y: 10 }];
