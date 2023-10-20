@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        Snake Game
+    </title>
+    <meta charset="utf-8">
+    <meta name="author" content="PotatoMindPopper">
+    <meta name="description" content="Snake Game">
+    <meta name="keywords" content="Snake Game">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0c2577">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/png/snake.png">
+    <!-- <meta property="og:url" content="https://opdrachten.pages.dev/"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Snake Game">
+    <meta property="og:description" content="Snake Game">
+    <meta property="og:image" content="assets/img/png/snake.png">
+    <meta property="twitter:domain" content="">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@GamingVonk">
+    <meta property="twitter:creator" content="@GamingVonk">
+    <meta property="twitter:title" content="Snake Game">
+    <!-- <meta property="twitter:url" content="https://opdrachten.pages.dev/"> -->
+    <meta property="twitter:image" content="assets/img/png/snake.png">
+    <meta property="twitter:description" content="Snake Game">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div id="logo" style="display: none;">
+            <a href="index.html"><img src="assets/img/ico/favicon.ico" alt="logo"></a>
+        </div>
+        <div id="title">
+            <h1>Snake Game</h1>
+        </div>
+        <div class="dropdown" id="settings-dropdown">
+            <button class="dropbtn">Settings</button>
+            <div class="dropdown-content">
+                <button id="darkMode">Dark Mode</button>
+                <button id="lightMode">Light Mode</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- <section id="focus-mode">
+            <h2>Focus Modus</h2>
+            <p>Focus mode is a feature that allows you to block websites that you find distracting. It is recommended that you use this feature when you are studying or need to stay focused.</p>
+        </section> -->
+        <section id="snake-game">
+            <h2>Snake Game</h2>
+            <p>Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle. The concept originated in the 1976 arcade game Blockade, and the ease of implementing Snake has led to hundreds of versions (some of which have the word snake or worm in the title) for many platforms. After a variant was preloaded on Nokia mobile phones in 1998, there was a resurgence of interest in the snake concept as it found a larger audience.</p>
+        </section>
+        <section id="content">
+            <div id="game-canvas-container">
+                <canvas id="game-canvas"></canvas>
+            </div>
+            <div id="game-start-container">
+                <button id="game-start">Start</button>
+            </div>
+            <div id="game-over-container">
+                <h2>Game Over</h2>
+                <p id="game-over-score">Score: 0</p>
+                <button id="game-restart">Restart</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p><a href="https://github.com/PotatoMindPopper">PotatoMindPopper</a></p>
+    </footer>
+    <script src="assets/js/style.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+:root {
+    --body-bg-color: #f5f5f5;
+
+    --header-bg-color: #333;
+    --header-text-color: #fff;
+
+    --dropbtn-bg-color: #333;
+    --dropbtn-text-color: #fff;
+    --dropbtn-hover-bg-color: #444;
+    --dropbtn-hover-text-color: #f1f1f1;
+
+    --dropdown-content-bg-color: #f9f9f9;
+    --dropdown-content-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+    --dropdown-content-button-bg-color: #fff;
+    --dropdown-content-button-text-color: #333;
+    --dropdown-content-button-hover-bg-color: #f1f1f1;
+
+
+
+
+    --focus-mode-bg-color: #fff; /* not used currently */
+    --focus-mode-text-color: #333;
+
+
+
+
+
+    --content-bg-color: #fff;
+    --content-text-color: #333;
+
+
+
+
+    --search-engine-input-bg-color: #fff;
+    --search-engine-input-text-color: #333;
+    --search-engine-input-border-color: #ccc;
+    --search-engine-input-bg-image: url(../img/svg/search-icon.svg);
+
+    --search-engine-input-submit-bg-color: #333;
+    --search-engine-input-submit-text-color: #fff;
+
+
+
+
+    --footer-bg-color: #333;
+    --footer-text-color: #fff;
+    --footer-link-color: #fff;
+    --footer-link-hover-color: #f1f1f1;
+}
+
+body.dark-mode {
+    --body-bg-color: #333;
+
+    --header-bg-color: #222;
+    --header-text-color: #fff;
+
+    --dropbtn-bg-color: #222;
+    --dropbtn-text-color: #fff;
+    --dropbtn-hover-bg-color: #333;
+    --dropbtn-hover-text-color: #f1f1f1;
+
+    --dropdown-content-bg-color: #444;
+    --dropdown-content-box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.2);
+
+    --dropdown-content-button-bg-color: #333;
+    --dropdown-content-button-text-color: #fff;
+    --dropdown-content-button-hover-bg-color: #222;
+
+
+
+
+    --focus-mode-bg-color: #222; /* not used currently */
+    --focus-mode-text-color: #fff;
+
+
+
+    --content-bg-color: #222;
+    --content-text-color: #fff;
+
+
+
+    --search-engine-input-bg-color: #222;
+    --search-engine-input-text-color: #fff;
+    --search-engine-input-border-color: #444;
+    --search-engine-input-bg-image: url(../img/svg/search-icon.svg);
+
+    --search-engine-input-submit-bg-color: #444;
+    --search-engine-input-submit-text-color: #fff;
+
+
+
+
+    --footer-bg-color: #222;
+    --footer-text-color: #fff;
+    --footer-link-color: #fff;
+    --footer-link-hover-color: #f1f1f1;
+}
+
+/* Reset default styles */
+body, h1, h2, p, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--body-bg-color);
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0; */
+    /* background-color: #222; */
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: var(--dropbtn-bg-color);
+    color: var(--dropbtn-text-color);
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-content-bg-color);
+    min-width: 160px;
+    box-shadow: var(--dropdown-content-box-shadow);
+    z-index: 1;
+}
+
+/* Right-aligned dropdown content (making the content not fall outside the screen) */
+#settings-dropdown .dropdown-content {
+    right: 0;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+    display: block;
+    width: 100%;
+    background-color: var(--dropdown-content-button-bg-color);
+    color: var(--dropdown-content-button-text-color);
+    padding: 8px 16px;
+    text-align: left;
+}
+
+.dropdown-content a {
+    display: block;
+    width: 100%;
+    color: var(--dropdown-content-button-text-color);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: var(--dropdown-content-button-hover-bg-color);
+}
+
+.dropdown-content button:hover {
+    background-color: var(--dropdown-content-button-hover-bg-color);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    /* background-color: var(--dropbtn-hover-bg-color); */
+    color: var(--dropbtn-hover-text-color);
+}
+
+
+
+
+
+main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+#snake-game {
+    flex: 1;
+    /* background-color: var(--focus-mode-bg-color); */
+    color: var(--focus-mode-text-color);
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+#snake-game p {
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+#content {
+    flex: 2;
+    background-color: var(--content-bg-color);
+    color: var(--content-text-color);
+    padding: 20px;
+}
+
+/* #game-canvas {
+    border: 1px solid #fff;
+} */
+
+canvas {
+    border: 1px solid #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Blocked Sites */
+
+/* Blocked Sites - Default */
+
+#blocked-sites #blocked-sites-default {
+    margin-top: 20px;
+}
+
+/* Blocked Sites - Custom */
+
+#blocked-sites #blocked-sites-custom {
+    margin-top: 20px;
+}
+
+#blocked-sites #blocked-sites-custom input[type="text"] {
+    padding: 5px;
+    width: 70%;
+    background-color: var(--search-engine-input-bg-color);
+    color: var(--search-engine-input-text-color);
+}
+
+#blocked-sites #blocked-sites-custom #blocked-site {
+    box-sizing: border-box;
+    border: 2px solid var(--search-engine-input-border-color);
+    border-radius: 4px;
+    outline: none;
+
+    width: auto;
+    max-width: 70%;
+    min-width: 50%;
+
+    height: 30px;
+
+    /* TODO: change this to a blocked icon */
+    background-image: var(--search-engine-input-bg-image);
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    background-size: 15px;
+
+    /* top right bottom left */
+    padding: 5px 20px 5px 30px;
+}
+
+#blocked-sites #blocked-sites-custom input[type="submit"] {
+    padding: 5px 15px;
+    background-color: var(--search-engine-input-submit-bg-color);
+    color: var(--search-engine-input-submit-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+}
+
+/* Whitelisted Sites */
+
+#whitelisted-sites {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Calendar */
+/* Timer */
+
+#calendar {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Redirect */
+
+#redirect-settings {
+    margin-top: 20px;
+}
+
+#redirect-settings input[type="text"] {
+    padding: 5px;
+    width: 70%;
+    background-color: var(--search-engine-input-bg-color);
+    color: var(--search-engine-input-text-color);
+}
+
+#redirect-settings #redirect-url {
+    box-sizing: border-box;
+    border: 2px solid var(--search-engine-input-border-color);
+    border-radius: 4px;
+    outline: none;
+
+    width: auto;
+    max-width: 70%;
+    min-width: 50%;
+
+    height: 30px;
+
+    /* TODO: change this to a redirect icon */
+    background-image: var(--search-engine-input-bg-image);
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    background-size: 15px;
+
+    /* top right bottom left */
+    padding: 5px 20px 5px 30px;
+}
+
+#redirect-settings input[type="submit"] {
+    padding: 5px 15px;
+    background-color: var(--search-engine-input-submit-bg-color);
+    color: var(--search-engine-input-submit-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+}
+
+/* Reset */
+
+#reset-settings {
+    margin-top: 20px;
+}
+
+#reset-settings input[type="submit"] {
+    padding: 5px 15px;
+    background-color: var(--search-engine-input-submit-bg-color);
+    color: var(--search-engine-input-submit-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+}
+
+/* Import/Export */
+
+#import-settings {
+    display: none;
+    margin-top: 20px;
+}
+
+#export-settings {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Search Engine */
+
+#search-engine {
+    margin-top: 20px;
+}
+
+#search-engine input[type="text"] {
+    padding: 5px;
+    width: 70%;
+    background-color: var(--search-engine-input-bg-color);
+    color: var(--search-engine-input-text-color);
+}
+
+#search-engine #search-query {
+    box-sizing: border-box;
+    border: 2px solid var(--search-engine-input-border-color);
+    border-radius: 4px;
+    outline: none;
+
+    width: auto;
+    max-width: 70%;
+    min-width: 50%;
+
+    height: 30px;
+
+    background-image: var(--search-engine-input-bg-image);
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    background-size: 15px;
+
+    /* top right bottom left */
+    padding: 5px 20px 5px 30px;
+}
+
+#search-engine input[type="submit"] {
+    padding: 5px 15px;
+    background-color: var(--search-engine-input-submit-bg-color);
+    color: var(--search-engine-input-submit-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+}
+
+#search-engine #search-engine-select {
+    padding: 5px;
+
+    height: 30px;
+
+    background-color: var(--search-engine-input-bg-color);
+    color: var(--search-engine-input-text-color);
+
+    box-sizing: border-box;
+    /* border: none; */
+    border: 2px solid var(--search-engine-input-border-color);
+    border-radius: 4px;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    text-align: center;
+    padding: 10px;
+}
+
+footer a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--footer-link-hover-color);
+    /* text-decoration: underline; */
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    main {
+        flex-direction: column;
+    }
+
+    #focus-mode {
+        margin-right: 0;
+        margin-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .dropdown-content a {
+        float: none;
+        width: 100%;
+    }
+
+    .dropdown-content button {
+        float: none;
+        width: 100%;
+    }
+}
