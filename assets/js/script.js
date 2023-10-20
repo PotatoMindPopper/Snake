@@ -33,6 +33,7 @@ const foodColor = "#ff3333";
 let snake = [{ x: 10, y: 10 }];
 let food = { x: 5, y: 5 };
 let direction = "right";
+let directionQueue = [];
 let score = 0;
 
 // Game state variables
@@ -64,6 +65,8 @@ function drawFood() {
 function update() {
   let headX = snake[0].x;
   let headY = snake[0].y;
+
+  updateDirection();
 
   switch (direction) {
     case "up":
@@ -121,20 +124,31 @@ function changeDirection(event) {
   switch (key) {
     case 37: // left (37 is the key code for the left arrow key)
     case 65: // a (65 is the key code for the a key)
-      if (direction !== "right") direction = "left";
+      // if (direction !== "right") direction = "left";
+      if (direction !== "right") directionQueue.push("left");
       break;
     case 38: // up (38 is the key code for the up arrow key)
     case 87: // w (87 is the key code for the w key)
-      if (direction !== "down") direction = "up";
+      // if (direction !== "down") direction = "up";
+      if (direction !== "down") directionQueue.push("up");
       break;
     case 39: // right (39 is the key code for the right arrow key)
     case 68: // d (68 is the key code for the d key)
-      if (direction !== "left") direction = "right";
+      // if (direction !== "left") direction = "right";
+      if (direction !== "left") directionQueue.push("right");
       break;
     case 40: // down (40 is the key code for the down arrow key)
     case 83: // s (83 is the key code for the s key)
-      if (direction !== "up") direction = "down";
+      // if (direction !== "up") direction = "down";
+      if (direction !== "up") directionQueue.push("down");
       break;
+  }
+}
+
+// Update direction
+function updateDirection() {
+  if (directionQueue.length > 0) {
+    direction = directionQueue.shift();
   }
 }
 
