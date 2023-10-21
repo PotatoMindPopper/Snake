@@ -19,7 +19,10 @@ game_over_container.style.display = "none";
 
 // Canvas setup
 const canvas = document.getElementById("game-canvas");
-canvas.width = 400; // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
+// canvas.width = 400;
+// canvas.width = 910; // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
+const element_width = document.getElementById("game-container").offsetWidth;
+canvas.width = element_width;
 canvas.height = 400;
 const context = canvas.getContext("2d");
 
