@@ -254,17 +254,11 @@ main {
 canvas {
     border: 2px solid var(--game-canvas-border-color);
     border-radius: 4px;
+    
+    margin-bottom: 10px;
 }
 
-#settings-info {
-    flex: 1;
-    /* background-color: var(--content-bg-color); */
-    /* color: var(--content-text-color); */
-    color: var(--settings-info-text-color);
-    padding: 20px;
-}
-
-#info-container button {
+#content #controls-container button {
     padding: 5px 15px;
     background-color: var(--game-start-bg-color);
     color: var(--game-start-text-color);
@@ -273,24 +267,6 @@ canvas {
     cursor: pointer;
 
     height: 30px;
-}
-
-#game-score-container {
-    margin-bottom: 10px;
-}
-
-#game-score-container p {
-    padding-left: 5px;
-}
-
-#game-score-container #game-score {
-    /* font-size: 24px; */
-    font-weight: bold;
-}
-
-#game-score-container #game-high-score {
-    /* font-size: 24px; */
-    font-weight: bold;
 }
 
 #game-start-container {
@@ -341,6 +317,52 @@ canvas {
     cursor: pointer;
 
     height: 30px;
+}
+
+#settings-info {
+    flex: 1;
+    /* background-color: var(--content-bg-color); */
+    /* color: var(--content-text-color); */
+    color: var(--settings-info-text-color);
+    padding: 20px;
+}
+
+#info-container {
+    margin-bottom: 10px;
+}
+
+#info-container #info-title-container p {
+    padding-left: 5px;
+}
+
+#info-container #info-content-container {
+    padding-left: 5px;
+}
+
+#game-score-container {
+    margin-bottom: 10px;
+}
+
+#game-score-container p {
+    padding-left: 5px;
+}
+
+#game-score-container #game-score {
+    /* font-size: 24px; */
+    font-weight: bold;
+}
+
+#game-score-container #game-high-score {
+    /* font-size: 24px; */
+    font-weight: bold;
+}
+
+#game-controls-container {
+    margin-bottom: 10px;
+}
+
+#game-controls-container p {
+    padding-left: 5px;
 }
 
 #settings-info-seperator {
