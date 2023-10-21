@@ -7,8 +7,9 @@ const start_button = document.getElementById("game-start");
 // Score elements
 const score_container = document.getElementById("game-score-container");
 const score_element = document.getElementById("game-score");
+const high_score_element = document.getElementById("game-high-score");
 // set container to display none
-score_container.style.display = "none";
+// score_container.style.display = "none";
 
 // Game over elements
 const game_over_container = document.getElementById("game-over-container");
@@ -33,8 +34,9 @@ const foodColor = "#ff3333";
 let snake = [{ x: 10, y: 10 }];
 let food = { x: 5, y: 5 };
 let direction = "right";
-let directionQueue = [];
+let direction_queue = [];
 let score = 0;
+let high_score = 0;
 
 // Game state variables
 let game_running = false;
@@ -88,6 +90,10 @@ function update() {
   if (headX === food.x && headY === food.y) {
     score++;
     score_element.innerHTML = "Score: " + score;
+    if (score > high_score) {
+      high_score = score;
+      high_score_element.innerHTML = "High Score: " + high_score;
+    }
     food = {
       x: Math.floor(Math.random() * (canvas.width / gridSize)),
       y: Math.floor(Math.random() * (canvas.height / gridSize)),
@@ -125,30 +131,30 @@ function changeDirection(event) {
     case 37: // left (37 is the key code for the left arrow key)
     case 65: // a (65 is the key code for the a key)
       // if (direction !== "right") direction = "left";
-      if (direction !== "right") directionQueue.push("left");
+      if (direction !== "right") direction_queue.push("left");
       break;
     case 38: // up (38 is the key code for the up arrow key)
     case 87: // w (87 is the key code for the w key)
       // if (direction !== "down") direction = "up";
-      if (direction !== "down") directionQueue.push("up");
+      if (direction !== "down") direction_queue.push("up");
       break;
     case 39: // right (39 is the key code for the right arrow key)
     case 68: // d (68 is the key code for the d key)
       // if (direction !== "left") direction = "right";
-      if (direction !== "left") directionQueue.push("right");
+      if (direction !== "left") direction_queue.push("right");
       break;
     case 40: // down (40 is the key code for the down arrow key)
     case 83: // s (83 is the key code for the s key)
       // if (direction !== "up") direction = "down";
-      if (direction !== "up") directionQueue.push("down");
+      if (direction !== "up") direction_queue.push("down");
       break;
   }
 }
 
 // Update direction
 function updateDirection() {
-  if (directionQueue.length > 0) {
-    direction = directionQueue.shift();
+  if (direction_queue.length > 0) {
+    direction = direction_queue.shift();
   }
 }
 
@@ -208,9 +214,13 @@ function load() {
 
 // Start the game
 function start(event) {
-  // Check the key pressed
-  const key = event.keyCode;
-  if (key !== 13) return; // 13 is the key code for the enter key
+  // Check event type (if it's a keydown event, check if it's the enter key)
+  if (event.type === "keydown" && event.keyCode !== 13) return; // 13 is the key code for the enter key
+  //   // Check the key pressed
+  //   const key = event.keyCode;
+  //   if (key !== 13) return; // 13 is the key code for the enter key
+  // }
+  if (event.type === "keypress" && event.keyCode !== 13) return; // 13 is the key code for the enter key
 
   game_start_container.style.display = "none";
   score_container.style.display = "block";
@@ -231,7 +241,11 @@ function game_over() {
   // Display game over container
   score_container.style.display = "none";
   const game_over_score_element = document.getElementById("game-over-score");
+  const game_over_high_score_element = document.getElementById(
+    "game-over-high-score"
+  );
   game_over_score_element.innerHTML = "Score: " + score;
+  game_over_high_score_element.innerHTML = "High Score: " + high_score;
   game_over_container.style.display = "block";
 
   // Clear keyboard event listener
@@ -264,7 +278,7 @@ function restart() {
 // Set event listeners
 start_button.addEventListener("click", start);
 restart_button.addEventListener("click", restart);
-document.addEventListener("keydown", start);
+document.addEventListener("keypress", start);
 
 // Load the game
 load();
