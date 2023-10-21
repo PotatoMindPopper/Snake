@@ -22,7 +22,20 @@ const canvas = document.getElementById("game-canvas");
 // canvas.width = 400;
 // canvas.width = 910; // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
 const element_width = document.getElementById("game-container").offsetWidth;
-canvas.width = (element_width >= 400 ? element_width : 400);
+// Check if the element width is greater than 400px, if it is, set the canvas 
+// width to the element width, if not, set the canvas width to 400px. Also 
+// check if the width is 10 based, if it is, set the canvas width to the 
+// element width, if not, set the canvas width to the closest 10 based number 
+// (this is to prevent the canvas from getting out of grid shape)
+if (element_width >= 400) {
+  if (element_width % 10 === 0) {
+    canvas.width = element_width;
+  } else {
+    canvas.width = element_width - (element_width % 10);
+  }
+} else {
+  canvas.width = 400;
+}
 canvas.height = 400;
 const context = canvas.getContext("2d");
 
