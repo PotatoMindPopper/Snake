@@ -29,11 +29,14 @@
     --content-bg-color: #fff;
     --content-text-color: #333;
 
-    --game-canvas-border-color: #333;
+    --game-canvas-border-color: #ccc;/*#333;*/
     --game-start-bg-color: #333;
     --game-start-text-color: #fff;
     --game-restart-bg-color: #333;
     --game-restart-text-color: #fff;
+
+    --settings-info-bg-color: #fff;
+    --settings-info-text-color: #333;
 
 
 
@@ -83,11 +86,14 @@ body.dark-mode {
     --content-bg-color: #222;
     --content-text-color: #fff;
 
-    --game-canvas-border-color: #fff;
-    --game-start-bg-color: #fff;
-    --game-start-text-color: #333;
-    --game-restart-bg-color: #fff;
-    --game-restart-text-color: #333;
+    --game-canvas-border-color: #444;/*#fff;*/
+    --game-start-bg-color: #444;/*#fff;*/
+    --game-start-text-color: #fff;/*#333;*/
+    --game-restart-bg-color: #444;/*#fff;*/
+    --game-restart-text-color: #fff;/*#333;*/
+
+    --settings-info-bg-color: #222;
+    --settings-info-text-color: #fff;
 
 
 
@@ -109,7 +115,7 @@ body.dark-mode {
 }
 
 /* Reset default styles */
-body, h1, h2, p, button {
+body, h1, h2, h3, p, button {
     margin: 0;
     padding: 0;
 }
@@ -250,6 +256,51 @@ canvas {
     border-radius: 4px;
 }
 
+#settings-info {
+    flex: 1;
+    /* background-color: var(--content-bg-color); */
+    /* color: var(--content-text-color); */
+    color: var(--settings-info-text-color);
+    padding: 20px;
+}
+
+#info-container button {
+    padding: 5px 15px;
+    background-color: var(--game-start-bg-color);
+    color: var(--game-start-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+}
+
+#game-score-container {
+    margin-bottom: 10px;
+}
+
+#game-score-container p {
+    padding-left: 5px;
+}
+
+#game-score-container #game-score {
+    /* font-size: 24px; */
+    font-weight: bold;
+}
+
+#game-score-container #game-high-score {
+    /* font-size: 24px; */
+    font-weight: bold;
+}
+
+#game-start-container {
+    margin-bottom: 10px;
+}
+
+#game-start-container p {
+    padding-left: 5px;
+}
+
 #game-start-container #game-start {
     padding: 5px 15px;
     background-color: var(--game-start-bg-color);
@@ -259,6 +310,26 @@ canvas {
     cursor: pointer;
 
     height: 30px;
+
+    margin-left: 5px;
+}
+
+#game-over-container {
+    display: none;
+}
+
+#game-over-container p {
+    padding-left: 5px;
+}
+
+#game-over-container #game-over-score {
+    /* font-size: 24px; */
+    font-weight: bold;
+}
+
+#game-over-container #game-over-high-score {
+    /* font-size: 24px; */
+    font-weight: bold;
 }
 
 #game-over-container #game-restart {
@@ -272,14 +343,11 @@ canvas {
     height: 30px;
 }
 
-#settings-info {
-    flex: 1;
-    /* background-color: var(--content-bg-color); */
-    /* color: var(--content-text-color); */
-    color: var(--focus-mode-text-color);
-    padding: 20px;
+#settings-info-seperator {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--settings-info-text-color);
 }
-
 
 
 
