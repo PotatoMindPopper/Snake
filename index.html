@@ -34,6 +34,7 @@
         <div id="title">
             <h1>Snake Game</h1>
         </div>
+        <!-- TODO: Add url pages (about etc.) at the top -->
         <div class="dropdown" id="settings-dropdown">
             <button class="dropbtn">Settings</button>
             <div class="dropdown-content">
@@ -44,10 +45,6 @@
         </div>
     </header>
     <main>
-        <!-- <section id="focus-mode">
-            <h2>Focus Modus</h2>
-            <p>Focus mode is a feature that allows you to block websites that you find distracting. It is recommended that you use this feature when you are studying or need to stay focused.</p>
-        </section> -->
         <section id="snake-game">
             <h2>Snake Game</h2>
             <p>Snake is the common name for a video game concept where the player maneuvers a line which grows in length, with the line itself being a primary obstacle. The concept originated in the 1976 arcade game Blockade, and the ease of implementing Snake has led to hundreds of versions (some of which have the word snake or worm in the title) for many platforms. After a variant was preloaded on Nokia mobile phones in 1998, there was a resurgence of interest in the snake concept as it found a larger audience.</p>
@@ -56,29 +53,51 @@
             <div id="game-canvas-container">
                 <canvas id="game-canvas"></canvas>
             </div>
-            <div id="game-start-container">
-                <button id="game-start">Start</button>
-            </div>
-            <div id="game-score-container">
-                <p id="game-score">Score: 0</p>
-            </div>
-            <div id="game-over-container">
-                <h2>Game Over</h2>
-                <p id="game-over-score">Score: 0</p>
-                <button id="game-restart">Restart</button>
-            </div>
         </section>
         <section id="settings-info">
-            <div id="game-start-container">
-                <button id="game-start">Start</button>
+            <div id="info-container">
+                <h2>Info</h2>
+                <div id="game-score-container">
+                    <h3>Score</h3>
+                    <p>
+                        See your score by looking at the score counter.<br>
+                        Score is calculated by the amount of food you eat.<br>
+                        Every food you eat is worth 1 point.
+                    </p>
+                    <p id="game-score">Score: 0</p>
+                    <p id="game-high-score">Highscore: 0</p>
+                </div>
+                <div id="game-start-container">
+                    <h3>Start</h3>
+                    <p>Start the game by pressing the start button.</p>
+                    <button id="game-start">Start</button>
+                </div>
+                <!-- <div id="game-pause-container">
+                    <h3>Pause</h3>
+                    <p>Pause the game by pressing the pause button.</p>
+                    <button id="game-pause">Pause</button>
+                </div>
+                <div id="game-resume-container">
+                    <h3>Resume</h3>
+                    <p>Resume the game by pressing the resume button.</p>
+                    <button id="game-resume">Resume</button>
+                </div>
+                <div id="game-stop-container">
+                    <h3>Stop</h3>
+                    <p>Stop the game by pressing the stop button.</p>
+                    <button id="game-stop">Stop</button>
+                </div> -->
+                <div id="game-over-container">
+                    <h2>Game Over</h2>
+                    <p id="game-over-score">Score: 0</p>
+                    <p id="game-over-high-score">Highscore: 0</p>
+                    <button id="game-restart">Restart</button>
+                </div>
             </div>
-            <div id="game-score-container">
-                <p id="game-score">Score: 0</p>
-            </div>
-            <div id="game-over-container">
-                <h2>Game Over</h2>
-                <p id="game-over-score">Score: 0</p>
-                <button id="game-restart">Restart</button>
+            <div id="settings-info-seperator"></div>
+            <div id="settings-container">
+                <h2>Settings</h2>
+                <p>Here you can change the settings of the game.</p>
             </div>
         </section>
     </main>
