@@ -223,7 +223,6 @@ function start(event) {
   if (event.type === "keypress" && event.keyCode !== 13) return; // 13 is the key code for the enter key
 
   game_start_container.style.display = "none";
-  score_container.style.display = "block";
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", start);
@@ -239,7 +238,6 @@ function game_over() {
   // alert("Game Over! Your score: " + score);
 
   // Display game over container
-  score_container.style.display = "none";
   const game_over_score_element = document.getElementById("game-over-score");
   const game_over_high_score_element = document.getElementById(
     "game-over-high-score"
@@ -262,10 +260,10 @@ function restart() {
   food = { x: 5, y: 5 };
   direction = "right";
   score = 0;
+  score_element.innerHTML = "Score: " + score;
 
   // Reset game over container
   game_over_container.style.display = "none";
-  score_container.style.display = "block";
 
   // Reset keyboard event listener
   document.addEventListener("keydown", changeDirection);
