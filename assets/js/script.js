@@ -21,6 +21,7 @@ game_over_container.style.display = "none";
 const gridSize = 10; // TODO: Maybe create a settings menu to change this value
 // TODO: turn this into a real image, with a snake head and a snake body (to be original)
 const snakeColor = "#33cc33";
+const snakeHeadColor = "#00ff00";
 // TODO: turn this into a real image, with a fruit (to be original)
 const foodColor = "#ff3333";
 
@@ -63,8 +64,9 @@ let last_frame_time = performance.now();
 
 // Draw the snake
 function drawSnake() {
-  snake.forEach((segment) => {
-    context.fillStyle = snakeColor;
+  snake.forEach((segment, index) => {
+    // Use snakeHeadColor for the first segment (snake's head), and snakeColor for the rest
+    context.fillStyle = index === 0 ? snakeHeadColor : snakeColor;
     context.fillRect(
       segment.x * gridSize,
       segment.y * gridSize,
