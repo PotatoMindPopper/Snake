@@ -18,6 +18,7 @@ const restart_button = document.getElementById("game-restart");
 game_over_container.style.display = "none";
 
 // Canvas variables
+let user_screen_width = window.innerWidth;
 const gridSize = 10; // TODO: Maybe create a settings menu to change this value
 // TODO: turn this into a real image, with a snake head and a snake body (to be original)
 const snakeColor = "#33cc33";
@@ -35,15 +36,6 @@ const element_width = document.getElementById("game-container").offsetWidth;
 // check if the width is 10 based, if it is, set the canvas width to the 
 // element width, if not, set the canvas width to the closest 10 based number 
 // (this is to prevent the canvas from getting out of grid shape)
-// if (element_width >= 400) {
-//   if (element_width % gridSize === 0) {
-//     canvas.width = element_width;
-//   } else {
-//     canvas.width = element_width - (element_width % gridSize);
-//   }
-// } else {
-//   canvas.width = 400;
-// }
 canvas.width = Math.max(400, element_width - (element_width % gridSize));
 // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
 window.addEventListener("resize", function () {
@@ -54,23 +46,27 @@ window.addEventListener("resize", function () {
   // Creating a dependency loop.
   // To fix this, I need to create a way to check how much the entire screen width
   // has changed, and then update the canvas width accordingly.
-  let screen_width = window.innerWidth;
-  // let screen_width = document.body.clientWidth;
-  // let screen_width = document.documentElement.clientWidth;
-  // let screen_width = document.getElementById("game-container").offsetWidth;
-  
-  
   const element_width = document.getElementById("game-container").offsetWidth;
-  // if (element_width >= 400) {
-  //   if (element_width % gridSize === 0) {
-  //     canvas.width = element_width;
-  //   } else {
-  //     canvas.width = element_width - (element_width % gridSize);
-  //   }
-  // } else {
-  //   canvas.width = 400;
-  // }
-  canvas.width = Math.max(400, element_width - (element_width % gridSize));
+  
+  // Get the new screen width
+  let screen_width = window.innerWidth;
+
+  // Detect if the screen width has changed
+  if (screen_width !== user_screen_width) {
+    // TODO: Might want to check how much the screen width has changed, and then
+    // update the canvas width accordingly.
+
+    // Update the user screen width
+    user_screen_width = screen_width;
+
+    // Check if the element width is greater than 400px, if it is, set the canvas 
+    // width to the element width, if not, set the canvas width to 400px. Also 
+    // check if the width is 10 based, if it is, set the canvas width to the 
+    // element width, if not, set the canvas width to the closest 10 based number 
+    // (this is to prevent the canvas from getting out of grid shape)
+    canvas.width = Math.max(400, Math.min(element_width, screen_width) - (Math.min(element_width, screen_width) % gridSize));
+    // canvas.width = Math.max(400, element_width - (element_width % gridSize));
+  }
 
   // Load the game, to update the canvas. (draw one frame)
   load();
