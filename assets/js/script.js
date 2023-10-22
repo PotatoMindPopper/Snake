@@ -35,16 +35,46 @@ const element_width = document.getElementById("game-container").offsetWidth;
 // check if the width is 10 based, if it is, set the canvas width to the 
 // element width, if not, set the canvas width to the closest 10 based number 
 // (this is to prevent the canvas from getting out of grid shape)
-if (element_width >= 400) {
-  if (element_width % gridSize === 0) {
-    canvas.width = element_width;
-  } else {
-    canvas.width = element_width - (element_width % gridSize);
-  }
-} else {
-  canvas.width = 400;
-}
+// if (element_width >= 400) {
+//   if (element_width % gridSize === 0) {
+//     canvas.width = element_width;
+//   } else {
+//     canvas.width = element_width - (element_width % gridSize);
+//   }
+// } else {
+//   canvas.width = 400;
+// }
+canvas.width = Math.max(400, element_width - (element_width % gridSize));
 // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
+window.addEventListener("resize", function () {
+  // FIXME: This is not working properly (when shrinking screen), due to the 
+  // depencency on the container width.
+  // The container width is not being updated properly, due to the width of the canvas.
+  // The canvas width is not being updated properly, due to the width of the container.
+  // Creating a dependency loop.
+  // To fix this, I need to create a way to check how much the entire screen width
+  // has changed, and then update the canvas width accordingly.
+  let screen_width = window.innerWidth;
+  // let screen_width = document.body.clientWidth;
+  // let screen_width = document.documentElement.clientWidth;
+  // let screen_width = document.getElementById("game-container").offsetWidth;
+  
+  
+  const element_width = document.getElementById("game-container").offsetWidth;
+  // if (element_width >= 400) {
+  //   if (element_width % gridSize === 0) {
+  //     canvas.width = element_width;
+  //   } else {
+  //     canvas.width = element_width - (element_width % gridSize);
+  //   }
+  // } else {
+  //   canvas.width = 400;
+  // }
+  canvas.width = Math.max(400, element_width - (element_width % gridSize));
+
+  // Load the game, to update the canvas. (draw one frame)
+  load();
+});
 canvas.height = 400;
 const context = canvas.getContext("2d");
 
