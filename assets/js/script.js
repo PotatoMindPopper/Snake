@@ -17,6 +17,13 @@ const restart_button = document.getElementById("game-restart");
 // set container to display none
 game_over_container.style.display = "none";
 
+// Canvas variables
+const gridSize = 10; // TODO: Maybe create a settings menu to change this value
+// TODO: turn this into a real image, with a snake head and a snake body (to be original)
+const snakeColor = "#33cc33";
+// TODO: turn this into a real image, with a fruit (to be original)
+const foodColor = "#ff3333";
+
 // Canvas setup
 const canvas = document.getElementById("game-canvas");
 // canvas.width = 400;
@@ -28,23 +35,17 @@ const element_width = document.getElementById("game-container").offsetWidth;
 // element width, if not, set the canvas width to the closest 10 based number 
 // (this is to prevent the canvas from getting out of grid shape)
 if (element_width >= 400) {
-  if (element_width % 10 === 0) {
+  if (element_width % gridSize === 0) {
     canvas.width = element_width;
   } else {
-    canvas.width = element_width - (element_width % 10);
+    canvas.width = element_width - (element_width % gridSize);
   }
 } else {
   canvas.width = 400;
 }
+// TODO: Create a method to auto detect the screen size and set the canvas size accordingly
 canvas.height = 400;
 const context = canvas.getContext("2d");
-
-// Canvas variables
-const gridSize = 10; // TODO: Maybe create a settings menu to change this value
-// TODO: turn this into a real image, with a snake head and a snake body (to be original)
-const snakeColor = "#33cc33";
-// TODO: turn this into a real image, with a fruit (to be original)
-const foodColor = "#ff3333";
 
 // Game variables
 let snake = [{ x: 10, y: 10 }];
