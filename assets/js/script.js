@@ -45,6 +45,76 @@ let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
 let fps_sprint = false;
 let last_frame_time = performance.now();
 
+// Handle resize event
+function resize_function() {
+  const element_width = document.getElementById("game-container").offsetWidth;
+
+  // Get the new screen width
+  const screen_width = window.innerWidth;
+
+  // Detect if the screen width has changed
+  if (screen_width <= user_screen_width) {
+    // TODO: Might want to check how much the screen width has changed, and
+    // then update the canvas width accordingly.
+
+    // Update the user screen width
+    user_screen_width = screen_width;
+
+    // Get the width of the info elements (surrounding the canvas)
+    const info_element_widths =
+      document.getElementById("snake-game").scrollWidth +
+      document.getElementById("settings-info").scrollWidth;
+    // Get the max canvas width (the max width the canvas can be, without
+    // overlapping the info elements). Also deduct 100px from the max canvas
+    // width, to prevent the canvas from getting too big.
+    const max_canvas_width = screen_width - info_element_widths - 100;
+
+    // Check the screen width, and set the canvas width accordingly
+    if (screen_width > 1200) {
+      canvas.width = Math.max(
+        400,
+        Math.min(element_width, max_canvas_width) -
+          (Math.min(element_width, max_canvas_width) % gridSize)
+      );
+    } else if (screen_width > 800) {
+      canvas.width = Math.min(
+        400,
+        Math.min(element_width, max_canvas_width) -
+          (Math.min(element_width, max_canvas_width) % gridSize)
+      );
+    } else {
+      canvas.width = Math.min(
+        400,
+        max_canvas_width - (max_canvas_width % gridSize)
+      );
+    }
+  } else {
+    // Update the user screen width
+    user_screen_width = screen_width;
+
+    // Get the width of the info elements (surrounding the canvas)
+    const info_element_widths =
+      document.getElementById("snake-game").scrollWidth +
+      document.getElementById("settings-info").scrollWidth;
+    const max_canvas_width = screen_width - info_element_widths;
+
+    // Check if the element width is greater than 400px, if it is, set the
+    // canvas width to the element width, if not, set the canvas width to
+    // 400px. Also check if the width is 10 based, if it is, set the canvas
+    // width to the element width, if not, set the canvas width to the closest
+    // 10 based number (this is to prevent the canvas from getting out of grid
+    // shape)
+    canvas.width = Math.max(
+      400,
+      Math.min(element_width, max_canvas_width) -
+        (Math.min(element_width, max_canvas_width) % gridSize)
+    );
+  }
+
+  // Load the game, to update the canvas. (draw one frame)
+  load();
+}
+
 // Draw the snake
 function drawSnake() {
   snake.forEach((segment, index) => {
@@ -314,74 +384,7 @@ function restart() {
 start_button.addEventListener("click", start);
 restart_button.addEventListener("click", restart);
 document.addEventListener("keypress", start);
-window.addEventListener("resize", function () {
-  const element_width = document.getElementById("game-container").offsetWidth;
-
-  // Get the new screen width
-  const screen_width = window.innerWidth;
-
-  // Detect if the screen width has changed
-  if (screen_width <= user_screen_width) {
-    // TODO: Might want to check how much the screen width has changed, and
-    // then update the canvas width accordingly.
-
-    // Update the user screen width
-    user_screen_width = screen_width;
-
-    // Get the width of the info elements (surrounding the canvas)
-    const info_element_widths =
-      document.getElementById("snake-game").scrollWidth +
-      document.getElementById("settings-info").scrollWidth;
-    // Get the max canvas width (the max width the canvas can be, without
-    // overlapping the info elements). Also deduct 100px from the max canvas
-    // width, to prevent the canvas from getting too big.
-    const max_canvas_width = screen_width - info_element_widths - 100;
-
-    // Check the screen width, and set the canvas width accordingly
-    if (screen_width > 1200) {
-      canvas.width = Math.max(
-        400,
-        Math.min(element_width, max_canvas_width) -
-          (Math.min(element_width, max_canvas_width) % gridSize)
-      );
-    } else if (screen_width > 800) {
-      canvas.width = Math.min(
-        400,
-        Math.min(element_width, max_canvas_width) -
-          (Math.min(element_width, max_canvas_width) % gridSize)
-      );
-    } else {
-      canvas.width = Math.min(
-        400,
-        max_canvas_width - (max_canvas_width % gridSize)
-      );
-    }
-  } else {
-    // Update the user screen width
-    user_screen_width = screen_width;
-
-    // Get the width of the info elements (surrounding the canvas)
-    const info_element_widths =
-      document.getElementById("snake-game").scrollWidth +
-      document.getElementById("settings-info").scrollWidth;
-    const max_canvas_width = screen_width - info_element_widths;
-
-    // Check if the element width is greater than 400px, if it is, set the
-    // canvas width to the element width, if not, set the canvas width to
-    // 400px. Also check if the width is 10 based, if it is, set the canvas
-    // width to the element width, if not, set the canvas width to the closest
-    // 10 based number (this is to prevent the canvas from getting out of grid
-    // shape)
-    canvas.width = Math.max(
-      400,
-      Math.min(element_width, max_canvas_width) -
-        (Math.min(element_width, max_canvas_width) % gridSize)
-    );
-  }
-
-  // Load the game, to update the canvas. (draw one frame)
-  load();
-});
+window.addEventListener("resize", resize_function);
 
 // Load the game
 load();
