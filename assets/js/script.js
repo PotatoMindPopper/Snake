@@ -167,20 +167,14 @@ function handleKeyDown(event) {
     // Esc key: stop the game
     // R key: restart the game
     // Shift key: sprint
+    case 13: // enter (13 is the key code for the enter key)
     case 32: // space (32 is the key code for the space key)
       event.preventDefault();
       if (game_running) {
         game_running = false;
+        pause(true);
       } else {
-        game_running = true;
-        gameLoop();
-      }
-      break;
-    case 13: // enter (13 is the key code for the enter key)
-      event.preventDefault();
-      if (game_running) {
-        game_running = false;
-      } else {
+        pause(false);
         game_running = true;
         gameLoop();
       }
@@ -188,6 +182,7 @@ function handleKeyDown(event) {
     case 27: // esc (27 is the key code for the esc key)
       event.preventDefault();
       game_running = false;
+      pause(true); // stop();
       break;
     case 82: // r (82 is the key code for the r key)
       event.preventDefault();
@@ -256,6 +251,25 @@ function start(event) {
   document.addEventListener("keydown", changeDirection);
   game_running = true;
   gameLoop();
+}
+
+// Pause the game
+function pause(pause) {
+  if (pause) {
+    // Display game start container
+    // TODO: Change this to pause container
+    game_start_container.style.display = "block";
+
+    // Clear keyboard event listener
+    // TODO: Check if this is needed, we still want to be able to unpause the game
+    document.removeEventListener("keydown", changeDirection);
+  } else {
+    // Hide game start container
+    game_start_container.style.display = "none";
+
+    // Set keyboard event listener
+    document.addEventListener("keydown", changeDirection);
+  }
 }
 
 // Game over
