@@ -132,22 +132,22 @@ function changeDirection(event) {
   switch (key) {
     case 37: // left (37 is the key code for the left arrow key)
     case 65: // a (65 is the key code for the a key)
-      // if (direction !== "right") direction = "left";
+      event.preventDefault();
       if (direction !== "right") direction_queue.push("left");
       break;
     case 38: // up (38 is the key code for the up arrow key)
     case 87: // w (87 is the key code for the w key)
-      // if (direction !== "down") direction = "up";
+      event.preventDefault();
       if (direction !== "down") direction_queue.push("up");
       break;
     case 39: // right (39 is the key code for the right arrow key)
     case 68: // d (68 is the key code for the d key)
-      // if (direction !== "left") direction = "right";
+      event.preventDefault();
       if (direction !== "left") direction_queue.push("right");
       break;
     case 40: // down (40 is the key code for the down arrow key)
     case 83: // s (83 is the key code for the s key)
-      // if (direction !== "up") direction = "down";
+      event.preventDefault();
       if (direction !== "up") direction_queue.push("down");
       break;
   }
