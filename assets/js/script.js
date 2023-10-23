@@ -42,6 +42,7 @@ let high_score = 0;
 // Game state variables
 let game_running = false;
 let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
+let fps_sprint = false;
 let last_frame_time = performance.now();
 
 // Draw the snake
@@ -126,10 +127,19 @@ function checkCollision() {
   );
 }
 
-// Change direction
-function changeDirection(event) {
+// Change direction and handle other keydown events
+function handleKeyDown(event) {
   const key = event.keyCode;
   switch (key) {
+    // DIRECTION KEYDOWN EVENTS
+    // Left arrow key: go left
+    // A key: go left
+    // Up arrow key: go up
+    // W key: go up
+    // Right arrow key: go right
+    // D key: go right
+    // Down arrow key: go down
+    // S key: go down
     case 37: // left (37 is the key code for the left arrow key)
     case 65: // a (65 is the key code for the a key)
       event.preventDefault();
@@ -150,7 +160,46 @@ function changeDirection(event) {
       event.preventDefault();
       if (direction !== "up") direction_queue.push("down");
       break;
-  }
+
+    // OTHER KEYDOWN EVENTS
+    // Space key: pause the game
+    // Enter key: resume the game
+    // Esc key: stop the game
+    // R key: restart the game
+    // Shift key: sprint
+    case 32: // space (32 is the key code for the space key)
+      event.preventDefault();
+      if (game_running) {
+        game_running = false;
+      } else {
+        game_running = true;
+        gameLoop();
+      }
+      break;
+    case 13: // enter (13 is the key code for the enter key)
+      event.preventDefault();
+      if (game_running) {
+        game_running = false;
+      } else {
+        game_running = true;
+        gameLoop();
+      }
+      break;
+    case 27: // esc (27 is the key code for the esc key)
+      event.preventDefault();
+      game_running = false;
+      break;
+    case 82: // r (82 is the key code for the r key)
+      event.preventDefault();
+      restart();
+      break;
+    case 16: // shift (16 is the key code for the shift key)
+      // TODO: Check when the key is released, and set fps_sprint to false
+      event.preventDefault();
+      fps_sprint = true;
+      fps_limit = 20;
+      break;
+    }
 }
 
 // Update direction
@@ -158,25 +207,6 @@ function updateDirection() {
   if (direction_queue.length > 0) {
     direction = direction_queue.shift();
   }
-}
-
-function handleKeyDown(event) {
-  /*
-    // TODO: Check if these keys are placed correctly
-    case 13: // enter (13 is the key code for the enter key)
-      if (game_running) game_over();
-      break;
-    case 82: // r (82 is the key code for the r key)
-      if (!game_running) restart();
-      break;
-    case 27: // esc (27 is the key code for the esc key)
-      if (!game_running) reset();
-      break;
-    case 16: // shift (16 is the key code for the shift key)
-      // TODO: Make this a keyhold event instead of a keydown event
-      fps_limit = 20;
-      break;
-  */
 }
 
 // Game loop
