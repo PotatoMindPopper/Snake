@@ -103,13 +103,25 @@ window.addEventListener("resize", function () {
     // (this is to prevent the canvas from getting out of grid shape)
     canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
 
-    // TODO: Check whether screen_width > 700 if so start using the max(400, etc) else use the min(400, etc)
-
     console.log("canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
     console.log("Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)));
     console.log("Math.min(element_width, max_canvas_width) ==> " + Math.min(element_width, max_canvas_width));
     console.log("Math.min(element_width, max_canvas_width) % gridSize ==> " + Math.min(element_width, max_canvas_width) % gridSize);
     console.log("Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize) ==> " + (Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)));
+
+    // TODO: Check whether screen_width > 1200 if so start using the max(400, etc) else use the min(400, etc)
+    // So this means, if the screen is big enough to support a good looking canvas, use the max (400), else use just formula
+    if (screen_width > 1200) {
+      canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
+      console.log("canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
+    } else if (screen_width > 800) {
+      canvas.width = Math.min(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
+      console.log("canvas.width = Math.min(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
+    } else {
+      canvas.width = Math.min(400, max_canvas_width - (max_canvas_width % gridSize));
+      console.log("canvas.width = Math.min(400, max_canvas_width - (max_canvas_width % gridSize)); ==> " + canvas.width);
+    }
+
     // canvas.width = Math.max(400, element_width - (element_width % gridSize));
     console.log("canvas.width = Math.max(400, element_width - (element_width % gridSize)); ==> " + canvas.width);
     console.log("element_width ==> " + element_width);
