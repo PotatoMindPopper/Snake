@@ -42,13 +42,13 @@ let high_score = 0;
 // Game state variables
 let game_running = false;
 let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
-// let last_frame_time = Date.now();
 let last_frame_time = performance.now();
 
 // Draw the snake
 function drawSnake() {
   snake.forEach((segment, index) => {
-    // Use snakeHeadColor for the first segment (snake's head), and snakeColor for the rest
+    // Use snakeHeadColor for the first segment (snake's head), and snakeColor
+    // for the rest
     context.fillStyle = index === 0 ? snakeHeadColor : snakeColor;
     context.fillRect(
       segment.x * gridSize,
@@ -181,15 +181,13 @@ function handleKeyDown(event) {
 
 // Game loop
 function gameLoop() {
-  // TODO: Implement an fps cap
   // Calculate time elapsed since last frame
-  // let current_time = Date.now();
   let current_time = performance.now();
   let time_elapsed = current_time - last_frame_time;
 
   // Check if game is running
   if (game_running) {
-    // Check if enough time has passed since last frame
+    // Check if enough time has passed since last frame (fps limit)
     if (time_elapsed >= 1000 / fps_limit) {
       // Update last frame time
       last_frame_time = current_time;
@@ -232,9 +230,6 @@ function start(event) {
 
 // Game over
 function game_over() {
-  // Display game over message
-  // alert("Game Over! Your score: " + score);
-
   // Display game over container
   const game_over_score_element = document.getElementById("game-over-score");
   const game_over_high_score_element = document.getElementById(
