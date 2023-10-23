@@ -39,9 +39,6 @@ const element_width = document.getElementById("game-container").offsetWidth;
 canvas.width = Math.max(400, element_width - (element_width % gridSize));
 // TODO: Create a method to auto detect the screen size and set the canvas size accordingly
 window.addEventListener("resize", function () {
-  console.log("================================================================================" + "\n");
-  console.log("window.addEventListener('resize', function () { ... });" + "\n");
-
   // FIXME: This is not working properly (when shrinking screen), due to the 
   // depencency on the container width.
   // The container width is not being updated properly, due to the width of the canvas.
@@ -51,50 +48,41 @@ window.addEventListener("resize", function () {
   // has changed, and then update the canvas width accordingly.
   const element_width = document.getElementById("game-container").offsetWidth;
 
-  console.log("const element_width = document.getElementById('game-container').offsetWidth; ==> " + element_width);
-
-  // Get the width of the info elements (surrounding the canvas)
-  const info_element_widths = 
-    document.getElementById("snake-game").scrollWidth +
-    document.getElementById("settings-info").scrollWidth;
-
-  console.log("const info_element_widths = document.getElementById('snake-game').scrollWidth + document.getElementById('settings-info').scrollWidth; ==> " + info_element_widths);
-  console.log("document.getElementById('snake-game').scrollWidth ==> " + document.getElementById("snake-game").scrollWidth);
-  console.log("document.getElementById('settings-info').scrollWidth ==> " + document.getElementById("settings-info").scrollWidth);
-  console.log("document.getElementById('snake-game').offsetWidth ==> " + document.getElementById("snake-game").offsetWidth);
-  console.log("document.getElementById('settings-info').offsetWidth ==> " + document.getElementById("settings-info").offsetWidth);
-  
   // Get the new screen width
   const screen_width = window.innerWidth;
 
-  console.log("const screen_width = window.innerWidth; ==> " + screen_width);
-
   // Detect if the screen width has changed
-  if (screen_width !== user_screen_width) {
+  if (screen_width <= user_screen_width) {
     // TODO: Might want to check how much the screen width has changed, and then
     // update the canvas width accordingly.
-
-    console.log("screen_width == user_screen_width ==> " + (screen_width == user_screen_width));
-    console.log("screen_width === user_screen_width ==> " + (screen_width === user_screen_width));
-    console.log("screen_width != user_screen_width ==> " + (screen_width != user_screen_width));
-    console.log("screen_width !== user_screen_width ==> " + (screen_width !== user_screen_width));
-    console.log("screen_width > user_screen_width ==> " + (screen_width > user_screen_width));
-    console.log("screen_width < user_screen_width ==> " + (screen_width < user_screen_width));
-    console.log("screen_width >= user_screen_width ==> " + (screen_width >= user_screen_width));
-    console.log("screen_width <= user_screen_width ==> " + (screen_width <= user_screen_width));
-    console.log("screen_width ==> " + screen_width);
-    console.log("user_screen_width ==> " + user_screen_width);
 
     // Update the user screen width
     user_screen_width = screen_width;
 
-    const max_canvas_width = screen_width - info_element_widths;
-    const max_element_width = max_canvas_width - (max_canvas_width % gridSize);
-    const max_element_width_2 = max_canvas_width - (max_canvas_width % 10);
+    // Get the width of the info elements (surrounding the canvas)
+    const info_element_widths = 
+      document.getElementById("snake-game").scrollWidth +
+      document.getElementById("settings-info").scrollWidth;
+    const max_canvas_width = (screen_width - info_element_widths) - 100;
 
-    console.log("const max_canvas_width = screen_width - info_element_widths; ==> " + max_canvas_width);
-    console.log("const max_element_width = max_canvas_width - (max_canvas_width % gridSize); ==> " + max_element_width);
-    console.log("const max_element_width_2 = max_canvas_width - (max_canvas_width % 10); ==> " + max_element_width_2);
+    // TODO: Check whether screen_width > 1200 if so start using the max(400, etc) else use the min(400, etc)
+    // So this means, if the screen is big enough to support a good looking canvas, use the max (400), else use just formula
+    if (screen_width > 1200) {
+      canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
+    } else if (screen_width > 800) {
+      canvas.width = Math.min(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
+    } else {
+      canvas.width = Math.min(400, max_canvas_width - (max_canvas_width % gridSize));
+    }
+  } else {
+    // Update the user screen width
+    user_screen_width = screen_width;
+
+    // Get the width of the info elements (surrounding the canvas)
+    const info_element_widths = 
+      document.getElementById("snake-game").scrollWidth +
+      document.getElementById("settings-info").scrollWidth;
+    const max_canvas_width = screen_width - info_element_widths;
 
     // Check if the element width is greater than 400px, if it is, set the canvas 
     // width to the element width, if not, set the canvas width to 400px. Also 
@@ -102,38 +90,7 @@ window.addEventListener("resize", function () {
     // element width, if not, set the canvas width to the closest 10 based number 
     // (this is to prevent the canvas from getting out of grid shape)
     canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
-
-    console.log("canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
-    console.log("Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)));
-    console.log("Math.min(element_width, max_canvas_width) ==> " + Math.min(element_width, max_canvas_width));
-    console.log("Math.min(element_width, max_canvas_width) % gridSize ==> " + Math.min(element_width, max_canvas_width) % gridSize);
-    console.log("Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize) ==> " + (Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)));
-
-    // TODO: Check whether screen_width > 1200 if so start using the max(400, etc) else use the min(400, etc)
-    // So this means, if the screen is big enough to support a good looking canvas, use the max (400), else use just formula
-    if (screen_width > 1200) {
-      canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
-      console.log("canvas.width = Math.max(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
-    } else if (screen_width > 800) {
-      canvas.width = Math.min(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize));
-      console.log("canvas.width = Math.min(400, Math.min(element_width, max_canvas_width) - (Math.min(element_width, max_canvas_width) % gridSize)); ==> " + canvas.width);
-    } else {
-      canvas.width = Math.min(400, max_canvas_width - (max_canvas_width % gridSize));
-      console.log("canvas.width = Math.min(400, max_canvas_width - (max_canvas_width % gridSize)); ==> " + canvas.width);
-    }
-
-    // canvas.width = Math.max(400, element_width - (element_width % gridSize));
-    console.log("canvas.width = Math.max(400, element_width - (element_width % gridSize)); ==> " + canvas.width);
-    console.log("element_width ==> " + element_width);
-    console.log("element_width % gridSize ==> " + element_width % gridSize);
-    console.log("element_width - (element_width % gridSize) ==> " + (element_width - (element_width % gridSize)));
   }
-
-  console.log("canvas.width ==> " + canvas.width);
-
-  console.log("end of window.addEventListener('resize', function () { ... });" + "\n");
-  console.log("================================================================================" + "\n");
-
 
   // Load the game, to update the canvas. (draw one frame)
   load();
