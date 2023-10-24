@@ -1,13 +1,31 @@
 // Snake game
 
-// Start game elements
-const game_start_container = document.getElementById("game-start-container");
-const start_button = document.getElementById("game-start");
-
 // Score elements
 const score_container = document.getElementById("game-score-container");
 const score_element = document.getElementById("game-score");
 const high_score_element = document.getElementById("game-high-score");
+
+// Start game elements
+const game_start_container = document.getElementById("game-start-container");
+const start_button = document.getElementById("game-start");
+
+// Pause game elements (container to pause the game)
+const pause_container = document.getElementById("game-pause-container");
+const pause_button = document.getElementById("game-pause");
+// set container to display none
+pause_container.style.display = "none";
+
+// Resume game elements (container to resume the game after it has been paused)
+const resume_container = document.getElementById("game-resume-container");
+const resume_button = document.getElementById("game-resume");
+// set container to display none
+resume_container.style.display = "none";
+
+// Stop game elements
+const stop_container = document.getElementById("game-stop-container");
+const stop_button = document.getElementById("game-stop");
+// set container to display none
+stop_container.style.display = "none";
 
 // Game over elements
 const game_over_container = document.getElementById("game-over-container");
@@ -314,6 +332,8 @@ function start(event) {
   if (event.type === "keypress" && event.keyCode !== 13) return;
 
   game_start_container.style.display = "none";
+  pause_container.style.display = "block";
+  stop_container.style.display = "block";
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", start);
@@ -326,16 +346,17 @@ function start(event) {
 // Pause the game
 function pause(pause) {
   if (pause) {
-    // Display game start container
-    // TODO: Change this to pause container
-    game_start_container.style.display = "block";
+    // Display pause container
+    pause_container.style.display = "none";
+    resume_container.style.display = "block";
 
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
     document.removeEventListener("keydown", changeDirection);
   } else {
-    // Hide game start container
-    game_start_container.style.display = "none";
+    // Hide pause container
+    pause_container.style.display = "block";
+    resume_container.style.display = "none";
 
     // Set keyboard event listener
     document.addEventListener("keydown", changeDirection);
@@ -344,6 +365,10 @@ function pause(pause) {
 
 // Game over
 function game_over() {
+  // Hide pause container
+  pause_container.style.display = "none";
+  stop_container.style.display = "none";
+
   // Display game over container
   const game_over_score_element = document.getElementById("game-over-score");
   const game_over_high_score_element = document.getElementById(
@@ -371,6 +396,8 @@ function restart() {
 
   // Reset game over container
   game_over_container.style.display = "none";
+  pause_container.style.display = "block";
+  stop_container.style.display = "block";
 
   // Reset keyboard event listener
   document.addEventListener("keydown", changeDirection);

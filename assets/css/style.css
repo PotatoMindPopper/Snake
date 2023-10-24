@@ -259,6 +259,10 @@ canvas {
     margin-bottom: 10px;
 }
 
+#content #controls-container div {
+    margin-bottom: 10px;
+}
+
 #content #controls-container button {
     padding: 5px 15px;
     background-color: var(--game-start-bg-color);
@@ -268,6 +272,8 @@ canvas {
     cursor: pointer;
 
     height: 30px;
+
+    margin-left: 5px;
 }
 
 #game-start-container {
@@ -289,6 +295,31 @@ canvas {
     height: 30px;
 
     margin-left: 5px;
+}
+
+#game-pause-container p {
+    padding-left: 5px;
+}
+
+#game-pause-container #game-pause {
+    padding: 5px 15px;
+    background-color: var(--game-start-bg-color);
+    color: var(--game-start-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    height: 30px;
+
+    margin-left: 5px;
+}
+
+#game-resume-container p {
+    padding-left: 5px;
+}
+
+#game-stop-container p {
+    padding-left: 5px;
 }
 
 #game-over-container {
