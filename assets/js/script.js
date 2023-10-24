@@ -338,7 +338,7 @@ function start(event) {
   // Clear keyboard event listener
   document.removeEventListener("keydown", start);
 
-  document.addEventListener("keydown", changeDirection);
+  document.addEventListener("keydown", handleKeyDown);
   game_running = true;
   gameLoop();
 }
@@ -352,14 +352,14 @@ function pause(pause) {
 
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
-    document.removeEventListener("keydown", changeDirection);
+    document.removeEventListener("keydown", handleKeyDown);
   } else {
     // Hide pause container
     pause_container.style.display = "block";
     resume_container.style.display = "none";
 
     // Set keyboard event listener
-    document.addEventListener("keydown", changeDirection);
+    document.addEventListener("keydown", handleKeyDown);
   }
 }
 
@@ -379,7 +379,7 @@ function game_over() {
   game_over_container.style.display = "block";
 
   // Clear keyboard event listener
-  document.removeEventListener("keydown", changeDirection);
+  document.removeEventListener("keydown", handleKeyDown);
 
   // Reset game loop (wait till restart button is clicked)
   game_running = false;
@@ -400,7 +400,7 @@ function restart() {
   stop_container.style.display = "block";
 
   // Reset keyboard event listener
-  document.addEventListener("keydown", changeDirection);
+  document.addEventListener("keydown", handleKeyDown);
 
   // Start game loop
   game_running = true;
