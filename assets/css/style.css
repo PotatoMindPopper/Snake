@@ -38,6 +38,12 @@
     --settings-info-bg-color: #fff;
     --settings-info-text-color: #333;
 
+    --info-color: #333;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+
+
 
 
     --search-engine-input-bg-color: #fff;
@@ -94,6 +100,9 @@ body.dark-mode {
 
     --settings-info-bg-color: #222;
     --settings-info-text-color: #fff;
+
+
+    --info-color: #fff;
 
 
 
