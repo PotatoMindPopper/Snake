@@ -217,6 +217,9 @@ function checkCollision() {
 
 // Change direction and handle other keydown events
 function handleKeyDown(event) {
+  // Log the key code
+  logger(event, "keydown");
+
   const key = event.keyCode;
   switch (key) {
     // DIRECTION KEYDOWN EVENTS
@@ -277,12 +280,53 @@ function handleKeyDown(event) {
       restart();
       break;
     case 16: // shift (16 is the key code for the shift key)
-      // TODO: Check when the key is released, and set fps_sprint to false
       event.preventDefault();
+      fps_limit = (fps_sprint ? 10 : 20) * (fps_limit / 10);
       fps_sprint = true;
-      fps_limit = 20;
+      // TODO: Check when the key is released, and set fps_sprint to false
+      document.addEventListener("keyup", handleKeyUp);
       break;
-    }
+  }
+}
+
+// Handle keyup events
+function handleKeyUp(event) {
+  // Log the key code
+  logger(event, "keyup");
+
+  const key = event.keyCode;
+  switch (key) {
+    case 16: // shift (16 is the key code for the shift key)
+      event.preventDefault();
+      fps_limit = (fps_sprint ? 10 : 20) * (fps_limit / 10);
+      fps_sprint = false;
+      document.removeEventListener("keyup", handleKeyUp);
+      break;
+  }
+}
+
+// Log the key code
+function logger(event, type) {
+  const logger_p_element = document.getElementById("log-message");
+
+  let message =
+    logger_p_element.innerHTML === ""
+      ? "Key code: \n"
+      : logger_p_element.innerHTML + "\n";
+
+  const timestamp = new Date().toLocaleTimeString();
+  message += timestamp;
+
+  if (type === "keydown") {
+    message += event.keyCode + " (keydown)\n";
+  } else if (type === "keyup") {
+    message += event.keyCode + " (keyup)\n";
+  }
+
+  logger_p_element.innerHTML = message;
+
+  // // Scroll to bottom of logger element
+  // logger_element.scrollTop = logger_element.scrollHeight;  
 }
 
 // Update direction
