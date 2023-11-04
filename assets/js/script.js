@@ -217,9 +217,6 @@ function checkCollision() {
 
 // Change direction and handle other keydown events
 function handleKeyDown(event) {
-  // Log the key code
-  logger(event, "keydown");
-
   const key = event.keyCode;
   switch (key) {
     // DIRECTION KEYDOWN EVENTS
@@ -287,13 +284,13 @@ function handleKeyDown(event) {
       document.addEventListener("keyup", handleKeyUp);
       break;
   }
+
+  // Log the key code
+  logger(key, "keydown");
 }
 
 // Handle keyup events
 function handleKeyUp(event) {
-  // Log the key code
-  logger(event, "keyup");
-
   const key = event.keyCode;
   switch (key) {
     case 16: // shift (16 is the key code for the shift key)
@@ -303,30 +300,24 @@ function handleKeyUp(event) {
       document.removeEventListener("keyup", handleKeyUp);
       break;
   }
+
+  // Log the key code
+  logger(key, "keyup");
 }
 
-// Log the key code
-function logger(event, type) {
-  const logger_p_element = document.getElementById("log-message");
+// Log the key code with timestamp
+function logKey(keyCode, type) {
+  const loggerElement = document.getElementById("log-message");
 
-  let message =
-    logger_p_element.innerHTML === ""
-      ? "Key code: \n"
-      : logger_p_element.innerHTML + "\n";
-
+  // Create a new log entry with a timestamp
   const timestamp = new Date().toLocaleTimeString();
-  message += timestamp;
+  const keyInfo = `${timestamp} - Key code: ${keyCode} (${type})\n`;
 
-  if (type === "keydown") {
-    message += event.keyCode + " (keydown)\n";
-  } else if (type === "keyup") {
-    message += event.keyCode + " (keyup)\n";
-  }
+  // Append the new entry to the log
+  loggerElement.innerHTML += keyInfo;
 
-  logger_p_element.innerHTML = message;
-
-  // // Scroll to bottom of logger element
-  // logger_element.scrollTop = logger_element.scrollHeight;  
+  // // Optionally, scroll to the bottom of the log element to keep it in view
+  // loggerElement.scrollTop = loggerElement.scrollHeight;
 }
 
 // Update direction
