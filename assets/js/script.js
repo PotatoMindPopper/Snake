@@ -59,7 +59,9 @@ let high_score = 0;
 
 // Game state variables
 let game_running = false;
-let fps_limit = 10; // TODO: Maybe create a settings menu to change this value
+const normal_fps_limit = 10; // TODO: Maybe create a settings menu to change this value
+const sprint_fps_limit = 20; // TODO: Maybe create a settings menu to change this value
+let fps_limit = normal_fps_limit;
 let fps_sprint = false;
 let last_frame_time = performance.now();
 
@@ -278,7 +280,6 @@ function handleKeyDown(event) {
       break;
     case 16: // shift (16 is the key code for the shift key)
       event.preventDefault();
-      fps_limit = (fps_sprint ? 10 : 20) * (fps_limit / 10);
       fps_sprint = true;
       // TODO: Check when the key is released, and set fps_sprint to false
       document.addEventListener("keyup", handleKeyUp);
@@ -295,7 +296,6 @@ function handleKeyUp(event) {
   switch (key) {
     case 16: // shift (16 is the key code for the shift key)
       event.preventDefault();
-      fps_limit = (fps_sprint ? 10 : 20) * (fps_limit / 10);
       fps_sprint = false;
       document.removeEventListener("keyup", handleKeyUp);
       break;
@@ -335,6 +335,9 @@ function gameLoop() {
 
   // Check if game is running
   if (game_running) {
+    // Set fps limit
+    fps_limit = fps_sprint ? sprint_fps_limit : normal_fps_limit;
+
     // Check if enough time has passed since last frame (fps limit)
     if (time_elapsed >= 1000 / fps_limit) {
       // Update last frame time
