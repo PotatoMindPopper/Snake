@@ -259,8 +259,15 @@ canvas {
     margin-bottom: 10px;
 }
 
+#controls-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 #content #controls-container div {
-    margin-bottom: 10px;
+    margin-right: 20px;
 }
 
 #content #controls-container button {
