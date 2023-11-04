@@ -377,6 +377,7 @@ function start(event) {
 
   document.addEventListener("keydown", handleKeyDown);
   game_running = true;
+  fps_sprint = false;
   gameLoop();
 }
 
@@ -409,10 +410,11 @@ function pause(pause) {
   }
 }
 
-// Game over
+// Game over (stop the game)
 function game_over() {
   // Hide pause container
   pause_container.style.display = "none";
+  resume_container.style.display = "none";
   stop_container.style.display = "none";
 
   // Display game over container
@@ -426,9 +428,11 @@ function game_over() {
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", handleKeyDown);
+  // TODO: Check if this is needed, we still want to be able to restart the game
 
   // Reset game loop (wait till restart button is clicked)
   game_running = false;
+  fps_sprint = false;
 }
 
 // Restart the game
@@ -439,6 +443,7 @@ function restart() {
   direction = "right";
   score = 0;
   score_element.innerHTML = "Score: " + score;
+  fps_sprint = false;
 
   // Reset game over container
   game_over_container.style.display = "none";
@@ -457,6 +462,7 @@ function restart() {
 start_button.addEventListener("click", start);
 pause_button.addEventListener("click", () => pause(true));
 resume_button.addEventListener("click", () => pause(false));
+stop_button.addEventListener("click", game_over);
 restart_button.addEventListener("click", restart);
 document.addEventListener("keypress", start);
 window.addEventListener("resize", resize_function);
