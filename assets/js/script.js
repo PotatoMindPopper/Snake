@@ -1,5 +1,11 @@
 // Snake game
 
+
+// Log variables (for debugging)
+// TODO: Remove this when the game is finished
+const print_log_message_on_keypress = false;
+
+
 // Score elements
 const score_container = document.getElementById("game-score-container");
 const score_element = document.getElementById("game-score");
@@ -287,7 +293,7 @@ function handleKeyDown(event) {
   }
 
   // Log the key code
-  logger(key, "keydown");
+  logKey(key, "keydown");
 }
 
 // Handle keyup events
@@ -302,22 +308,22 @@ function handleKeyUp(event) {
   }
 
   // Log the key code
-  logger(key, "keyup");
+  logKey(key, "keyup");
 }
 
 // Log the key code with timestamp
 function logKey(keyCode, type) {
+  if (!print_log_message_on_keypress) return;
+
+  // Get the log element
   const loggerElement = document.getElementById("log-message");
 
   // Create a new log entry with a timestamp
   const timestamp = new Date().toLocaleTimeString();
-  const keyInfo = `${timestamp} - Key code: ${keyCode} (${type})\n`;
+  const keyInfo = `${timestamp} - Key code: ${keyCode} (${type})<br>`;
 
   // Append the new entry to the log
   loggerElement.innerHTML += keyInfo;
-
-  // // Optionally, scroll to the bottom of the log element to keep it in view
-  // loggerElement.scrollTop = loggerElement.scrollHeight;
 }
 
 // Update direction
