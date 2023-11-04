@@ -266,14 +266,7 @@ function handleKeyDown(event) {
     case 13: // enter (13 is the key code for the enter key)
     case 32: // space (32 is the key code for the space key)
       event.preventDefault();
-      if (game_running) {
-        game_running = false;
-        pause(true);
-      } else {
-        pause(false);
-        game_running = true;
-        gameLoop();
-      }
+      pause(game_running);
       break;
     case 27: // esc (27 is the key code for the esc key)
       event.preventDefault();
@@ -389,21 +382,30 @@ function start(event) {
 
 // Pause the game
 function pause(pause) {
-  if (pause) {
+  if (pause && game_running) {
     // Display pause container
     pause_container.style.display = "none";
     resume_container.style.display = "block";
-
+    
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
     document.removeEventListener("keydown", handleKeyDown);
-  } else {
+    
+    // Stop game loop
+    game_running = false;
+  } else if (!pause && !game_running) {
     // Hide pause container
     pause_container.style.display = "block";
     resume_container.style.display = "none";
-
+    
     // Set keyboard event listener
     document.addEventListener("keydown", handleKeyDown);
+
+    // Start game loop
+    game_running = true;
+    gameLoop();
+  } else {
+    console.log("Game is already paused or running");
   }
 }
 
@@ -453,6 +455,8 @@ function restart() {
 
 // Set event listeners
 start_button.addEventListener("click", start);
+pause_button.addEventListener("click", () => pause(true));
+resume_button.addEventListener("click", () => pause(false));
 restart_button.addEventListener("click", restart);
 document.addEventListener("keypress", start);
 window.addEventListener("resize", resize_function);
