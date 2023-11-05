@@ -280,8 +280,7 @@ function handleKeyDown(event) {
       break;
     case 27: // esc (27 is the key code for the esc key)
       event.preventDefault();
-      game_running = false;
-      pause(true); // stop();
+      game_over(); // TODO: Maybe turn this into a stop() function
       break;
     case 82: // r (82 is the key code for the r key)
       event.preventDefault();
@@ -462,7 +461,7 @@ function restart() {
 start_button.addEventListener("click", start);
 pause_button.addEventListener("click", () => pause(true));
 resume_button.addEventListener("click", () => pause(false));
-stop_button.addEventListener("click", game_over);
+stop_button.addEventListener("click", game_over); // TODO: Maybe turn this into a stop() function
 restart_button.addEventListener("click", restart);
 document.addEventListener("keypress", start);
 window.addEventListener("resize", resize_function);
