@@ -246,6 +246,7 @@ function handleKeyDown(event) {
     // D key: go right
     // Down arrow key: go down
     // S key: go down
+    // Shift key: sprint
     case 37: // left (37 is the key code for the left arrow key)
     case 65: // a (65 is the key code for the a key)
       event.preventDefault();
@@ -266,13 +267,18 @@ function handleKeyDown(event) {
       event.preventDefault();
       if (direction !== "up") direction_queue.push("down");
       break;
+    case 16: // shift (16 is the key code for the shift key)
+      event.preventDefault();
+      fps_sprint = true;
+      // TODO: Check when the key is released, and set fps_sprint to false
+      document.addEventListener("keyup", handleKeyUp);
+      break;
 
     // OTHER KEYDOWN EVENTS
     // Space key: pause the game
     // Enter key: resume the game
     // Esc key: stop the game
     // R key: restart the game
-    // Shift key: sprint
     case 13: // enter (13 is the key code for the enter key)
     case 32: // space (32 is the key code for the space key)
       event.preventDefault();
@@ -285,12 +291,6 @@ function handleKeyDown(event) {
     case 82: // r (82 is the key code for the r key)
       event.preventDefault();
       restart();
-      break;
-    case 16: // shift (16 is the key code for the shift key)
-      event.preventDefault();
-      fps_sprint = true;
-      // TODO: Check when the key is released, and set fps_sprint to false
-      document.addEventListener("keyup", handleKeyUp);
       break;
   }
 
