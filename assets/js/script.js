@@ -141,6 +141,16 @@ function resize_function() {
   load();
 }
 
+// Set the display of the button containers (when true, the container is set to
+// display block, when false, the container is set to display none)
+function set_button_display(start, pause, resume, stop, restart) {
+  game_start_container.style.display = (start) ? "block" : "none";
+  pause_container.style.display = (pause) ? "block" : "none";
+  resume_container.style.display = (resume) ? "block" : "none";
+  stop_container.style.display = (stop) ? "block" : "none";
+  game_over_container.style.display = (restart) ? "block" : "none";
+}
+
 // Draw the snake
 function drawSnake() {
   snake.forEach((segment, index) => {
@@ -368,9 +378,8 @@ function start(event) {
   if (event.type === "keydown" && event.keyCode !== 13) return;
   if (event.type === "keypress" && event.keyCode !== 13) return;
 
-  game_start_container.style.display = "none";
-  pause_container.style.display = "block";
-  stop_container.style.display = "block";
+  // Hide start container
+  set_button_display(false, true, false, true, false);
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", start);
@@ -385,8 +394,7 @@ function start(event) {
 function pause(pause) {
   if (pause && game_running) {
     // Display pause container
-    pause_container.style.display = "none";
-    resume_container.style.display = "block";
+    set_button_display(false, false, true, true, false);
     
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
@@ -396,8 +404,7 @@ function pause(pause) {
     game_running = false;
   } else if (!pause && !game_running) {
     // Hide pause container
-    pause_container.style.display = "block";
-    resume_container.style.display = "none";
+    set_button_display(false, true, false, true, false);
     
     // Set keyboard event listener
     document.addEventListener("keydown", handleKeyDown);
@@ -412,11 +419,6 @@ function pause(pause) {
 
 // Game over (stop the game)
 function game_over() {
-  // Hide pause container
-  pause_container.style.display = "none";
-  resume_container.style.display = "none";
-  stop_container.style.display = "none";
-
   // Display game over container
   const game_over_score_element = document.getElementById("game-over-score");
   const game_over_high_score_element = document.getElementById(
@@ -424,7 +426,7 @@ function game_over() {
   );
   game_over_score_element.innerHTML = "Score: " + score;
   game_over_high_score_element.innerHTML = "High Score: " + high_score;
-  game_over_container.style.display = "block";
+  set_button_display(false, true, false, false, true);
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", handleKeyDown);
@@ -446,9 +448,7 @@ function restart() {
   fps_sprint = false;
 
   // Reset game over container
-  game_over_container.style.display = "none";
-  pause_container.style.display = "block";
-  stop_container.style.display = "block";
+  set_button_display(false, true, false, true, false);
 
   // Reset keyboard event listener
   document.addEventListener("keydown", handleKeyDown);
