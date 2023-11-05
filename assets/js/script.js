@@ -64,12 +64,20 @@ let score = 0;
 let high_score = 0;
 
 // Game state variables
-let game_running = false;
 const normal_fps_limit = 10; // TODO: Maybe create a settings menu to change this value
 const sprint_fps_limit = 20; // TODO: Maybe create a settings menu to change this value
 let fps_limit = normal_fps_limit;
 let fps_sprint = false;
 let last_frame_time = performance.now();
+let game_running = false; // Use this as backup, to the game_state variable
+const game_states = Object.freeze({
+  UNDEFINED: -1,
+  RUNNING: 0,
+  PAUSED: 1,
+  STOPPED: 2,
+  RESTARTED: 3,
+});
+let game_state = game_states.UNDEFINED;
 
 // Handle resize event
 function resize_function() {
@@ -313,6 +321,47 @@ function handleKeyUp(event) {
   logKey(key, "keyup");
 }
 
+// Handle menu keydown events, when game is not running
+function handleMenuKeyDown(event) {
+  // TODO: Not all keydown events are possible when the game is not running,
+  // so check what combinations are allowed, and only allow those combinations
+  const key = event.keyCode;
+
+  // Check if the game is running, if it is, don't do anything.
+  // This is because this function is only called when the game is not running.
+  if (game_running || game_state === game_states.RUNNING) return;
+
+  // Check if the game is paused.
+  if (game_state === game_states.PAUSED) {
+    // Check if the key pressed is the enter key or the space key.
+    // If it is, resume the game.
+    if (key === 13 || key === 32) {
+      event.preventDefault();
+      pause(false);
+    }
+  }
+
+  // Check if the game is stopped.
+  if (game_state === game_states.STOPPED) {
+    // Check if the key pressed is the r key.
+    // If it is, restart the game.
+    if (key === 82) {
+      event.preventDefault();
+      restart();
+    }
+  }
+
+  // Check if the key pressed is the esc key.
+  // If it is, stop the game.
+  if (key === 27) {
+    event.preventDefault();
+    game_over(); // TODO: Maybe turn this into a stop() function
+  }
+
+  // Log the key code
+  logKey(key, "keydown");
+}
+
 // Log the key code with timestamp
 function logKey(keyCode, type) {
   if (!print_log_message_on_keypress) return;
@@ -342,7 +391,7 @@ function gameLoop() {
   let time_elapsed = current_time - last_frame_time;
 
   // Check if game is running
-  if (game_running) {
+  if (game_state === game_states.RUNNING && game_running) {
     // Set fps limit
     fps_limit = fps_sprint ? sprint_fps_limit : normal_fps_limit;
 
@@ -382,9 +431,10 @@ function start(event) {
 
   // Clear keyboard event listener
   document.removeEventListener("keydown", start);
-
   document.addEventListener("keydown", handleKeyDown);
+
   game_running = true;
+  game_state = game_states.RUNNING;
   fps_sprint = false;
   gameLoop();
 }
@@ -398,18 +448,22 @@ function pause(pause) {
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
     document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleMenuKeyDown);
     
     // Stop game loop
     game_running = false;
+    game_state = game_states.PAUSED;
   } else if (!pause && !game_running) {
     // Hide pause container
     set_button_display(false, true, false, true, false);
     
     // Set keyboard event listener
+    document.removeEventListener("keydown", handleMenuKeyDown);
     document.addEventListener("keydown", handleKeyDown);
 
     // Start game loop
     game_running = true;
+    game_state = game_states.RUNNING;
     gameLoop();
   } else {
     console.log("Game is already paused or running");
@@ -418,6 +472,9 @@ function pause(pause) {
 
 // Game over (stop the game)
 function game_over() {
+  // Set game state
+  game_state = game_states.STOPPED;
+
   // Display game over container
   const game_over_score_element = document.getElementById("game-over-score");
   const game_over_high_score_element = document.getElementById(
@@ -428,8 +485,9 @@ function game_over() {
   set_button_display(false, true, false, false, true);
 
   // Clear keyboard event listener
-  document.removeEventListener("keydown", handleKeyDown);
   // TODO: Check if this is needed, we still want to be able to restart the game
+  document.removeEventListener("keydown", handleKeyDown);
+  document.addEventListener("keydown", handleMenuKeyDown);
 
   // Reset game loop (wait till restart button is clicked)
   game_running = false;
@@ -438,6 +496,9 @@ function game_over() {
 
 // Restart the game
 function restart() {
+  // Set game state
+  game_state = game_states.RESTARTED;
+
   // Reset game variables
   snake = [{ x: 10, y: 10 }];
   food = { x: 5, y: 5 };
@@ -450,10 +511,12 @@ function restart() {
   set_button_display(false, true, false, true, false);
 
   // Reset keyboard event listener
+  document.removeEventListener("keydown", handleMenuKeyDown);
   document.addEventListener("keydown", handleKeyDown);
 
   // Start game loop
   game_running = true;
+  game_state = game_states.RUNNING;
   gameLoop();
 }
 
