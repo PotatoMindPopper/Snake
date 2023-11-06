@@ -323,43 +323,39 @@ function handleKeyUp(event) {
 
 // Handle menu keydown events, when game is not running
 function handleMenuKeyDown(event) {
-  // TODO: Not all keydown events are possible when the game is not running,
-  // so check what combinations are allowed, and only allow those combinations
-  const key = event.keyCode;
-
   // Check if the game is running, if it is, don't do anything.
   // This is because this function is only called when the game is not running.
   if (game_running || game_state === game_states.RUNNING) return;
+  const key = event.keyCode;
 
-  // Check if the game is paused.
+  // Check the game state, and handle the keydown event accordingly
   if (game_state === game_states.PAUSED) {
-    // Check if the key pressed is the enter key or the space key.
-    // If it is, resume the game.
     if (key === 13 || key === 32) {
+      // enter or space (resume)
       event.preventDefault();
       pause(false);
     }
-  }
-
-  // Check if the game is stopped.
-  if (game_state === game_states.STOPPED) {
-    // Check if the key pressed is the r key.
-    // If it is, restart the game.
+    if (key === 27) {
+      // esc (stop)
+      event.preventDefault();
+      game_over(); // TODO: Maybe turn this into a stop() function
+    }
+  } else if (game_state === game_states.STOPPED) {
     if (key === 82) {
+      // r (restart)
       event.preventDefault();
       restart();
     }
-  }
-
-  // Check if the key pressed is the esc key.
-  // If it is, stop the game.
-  if (key === 27) {
-    event.preventDefault();
-    game_over(); // TODO: Maybe turn this into a stop() function
+  } else {
+    if (key === 27) {
+      // esc (stop)
+      event.preventDefault();
+      game_over(); // TODO: Maybe turn this into a stop() function
+    }
   }
 
   // Log the key code
-  logKey(key, "keydown");
+  logKey(key, "keydown", "handleMenuKeyDown");
 }
 
 // Log the key code with timestamp
