@@ -482,7 +482,7 @@ function game_over() {
   );
   game_over_score_element.innerHTML = "Score: " + score;
   game_over_high_score_element.innerHTML = "High Score: " + high_score;
-  set_button_display(false, true, false, false, true);
+  set_button_display(false, false, false, false, true);
 
   // Clear keyboard event listener
   // TODO: Check if this is needed, we still want to be able to restart the game
