@@ -1,11 +1,11 @@
 // Snake game
 
-
 // Log variables (for debugging)
 // TODO: Remove this when the game is finished
 const print_log_message_on_keypress = false;
 
-
+// TODO: Think about moving all the elements to their scopes (where they are
+// used), instead of having them all in the global scope.
 // Score elements
 const score_container = document.getElementById("game-score-container");
 const score_element = document.getElementById("game-score");
@@ -152,11 +152,11 @@ function resize_function() {
 // Set the display of the button containers (when true, the container is set to
 // display block, when false, the container is set to display none)
 function set_button_display(start, pause, resume, stop, restart) {
-  game_start_container.style.display = (start) ? "block" : "none";
-  pause_container.style.display = (pause) ? "block" : "none";
-  resume_container.style.display = (resume) ? "block" : "none";
-  stop_container.style.display = (stop) ? "block" : "none";
-  game_over_container.style.display = (restart) ? "block" : "none";
+  game_start_container.style.display = start ? "block" : "none";
+  pause_container.style.display = pause ? "block" : "none";
+  resume_container.style.display = resume ? "block" : "none";
+  stop_container.style.display = stop ? "block" : "none";
+  game_over_container.style.display = restart ? "block" : "none";
 }
 
 // Draw the snake
@@ -303,7 +303,7 @@ function handleKeyDown(event) {
   }
 
   // Log the key code
-  logKey(key, "keydown");
+  logKey(key, "keydown", "handleKeyDown");
 }
 
 // Handle keyup events
@@ -318,7 +318,7 @@ function handleKeyUp(event) {
   }
 
   // Log the key code
-  logKey(key, "keyup");
+  logKey(key, "keyup", "handleKeyUp");
 }
 
 // Handle menu keydown events, when game is not running
@@ -359,7 +359,7 @@ function handleMenuKeyDown(event) {
 }
 
 // Log the key code with timestamp
-function logKey(keyCode, type) {
+function logKey(keyCode, type, caller = "") {
   if (!print_log_message_on_keypress) return;
 
   // Get the log element
@@ -367,7 +367,7 @@ function logKey(keyCode, type) {
 
   // Create a new log entry with a timestamp
   const timestamp = new Date().toLocaleTimeString();
-  const keyInfo = `${timestamp} - Key code: ${keyCode} (${type})<br>`;
+  const keyInfo = `${timestamp} - Key code: ${keyCode} (${type} - ${caller})<br>`;
 
   // Append the new entry to the log
   loggerElement.innerHTML += keyInfo;
@@ -526,7 +526,7 @@ resume_button.addEventListener("click", () => pause(false));
 stop_button.addEventListener("click", game_over); // TODO: Maybe turn this into a stop() function
 restart_button.addEventListener("click", restart);
 document.addEventListener("keypress", start);
-window.addEventListener("resize", resize_function);
+window.addEventListener("resize", resize_function); // TODO: Maybe add a timeout as extra check
 
 // Load the game
 load();
