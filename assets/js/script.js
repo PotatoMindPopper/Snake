@@ -422,6 +422,9 @@ function load() {
 
 // Start the game
 function start(event) {
+  // Check if the game is already running, if it is, don't do anything
+  if (game_running || game_state !== game_states.UNDEFINED) return;
+
   // Check event type (if it's a keydown event, check if it's the enter key)
   if (event.type === "keydown" && event.keyCode !== 13) return;
   if (event.type === "keypress" && event.keyCode !== 13) return;
