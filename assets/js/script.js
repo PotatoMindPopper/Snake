@@ -441,22 +441,22 @@ function start(event) {
 
 // Pause the game
 function pause(pause) {
-  if (pause && game_running) {
+  if (pause && game_running && game_state === game_states.RUNNING) {
     // Display pause container
     set_button_display(false, false, true, true, false);
-    
+
     // Clear keyboard event listener
     // TODO: Check if this is needed, we still want to be able to unpause the game
     document.removeEventListener("keydown", handleKeyDown);
     document.addEventListener("keydown", handleMenuKeyDown);
-    
+
     // Stop game loop
     game_running = false;
     game_state = game_states.PAUSED;
-  } else if (!pause && !game_running) {
+  } else if (!pause && !game_running && game_state === game_states.PAUSED) {
     // Hide pause container
     set_button_display(false, true, false, true, false);
-    
+
     // Set keyboard event listener
     document.removeEventListener("keydown", handleMenuKeyDown);
     document.addEventListener("keydown", handleKeyDown);
